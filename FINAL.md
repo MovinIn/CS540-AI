@@ -196,3 +196,66 @@ We can improve the quality of the training set to not overfit and regularize thr
 
 Graph Neural Networks    
 Very similar to attention mechanism. Tries to figure out the meaning of a node through its connections (edges).     
+
+Search    
+Uniform Cost Search (UCS): literally just Djikstra's Algorithm.     
+Iterative Deepening Search (IDS): a mix of BFS and DFS. In an incremental counter starting at $$i=0$$ and stopping when finding goal, do DFS but stop when $$path length > i$$. 
+Uninformed Search: We do not know a heuristic $$h(n)$$ that describes the estimated distance from the node $$n$$ to the goal.     
+Informed Search: We do have a heuristic $$h(n)$$ that describes the estimated distance between the node and the goal.     
+Iterative Deepening A-Star (IDA*): At each phase, don’t expand any node with g(s) + h(s) > k (iteratively incrementing k assuming integer costs).     
+Beam Search (Djikstra's or A* algorithm but with fixed amount of nodes $$k$$ in priority queue).     
+
+Games    
+Dominant Strategies: "No matter what the other person does, I won't change my move."    
+Pure Nash Equilibrium: "I have no reason to deviate from my strategy." Example: Driving on a road. Nash Eq: (Right, Right) and (Left, Left).     
+Mixed Nash Equilibrium: "I will build my strategy so that the opponent cannot increase their reward by changing theirs." Finding Mixed Nash-EQ goes as follows:
+1. Assume a game where two players have two actions (a $$2 \times 2$$ payoff matrix). 
+2. Let $$u_1(a_1,q)$$ be the expected value of player 1 taking action 1 if the opponent plays some action at probability q.
+3. We want: $$u_1(a_1,q) = u_1(a_2,q)$$. Solve for q.
+4. We want: $$u_2(a_1, p) = u_2(a_2, p)$$. Solve for p.
+5. (q, 1-q) and (p, 1-p) is our Nash EQ for player 1 and player 2. 
+
+Minimax
+1. Two players, MIN and MAX. MAX wants largest score, MIN wants smallest score. The minimax tree is a tree with all of the decisions MAX and MIN can make, with the values of the nodes computed by the score if both players play optimally from that specific node point.
+
+Pruning
+Alpha-Beta pruning: skips irrelevant branches that do not impact the final decision (ie. if we are on MAX turn and we have found a branch to have guaranteed $$2B>0$$ score, but we know that MIN has a decision that will give a score of $$B$$, we do not need to continue down this branch, as min will never pick this branch). 
+
+Reinforcement Learning    
+Goal: find a map from states to actions that maximizes rewards.     
+Markov Decision Process (MDP)
+1. Let $$S$$ be the state set. Let $$A$$ be the action set. Let $$r(s_t)$$ be the reward function.
+2. We want to find the policy $$\pi (s): S \rightarrow A$$ given state probabilities $$P(s_{t+1}|s_t,a_t)$$ (this is a Markov assumption; the action we take does not depend on previous states).
+
+Finding the optimal policy $$\pi (s)$$. 
+
+$$
+{\pi}^{*}(s)={argmax}_a \sum{s'}{} P(s'|s,a)V^{\*}(s')
+$$
+
+1. We use the Bellman equation to figure out argmax. We use $$\delta<1$$ to find a converging discounted future rewards. This is often known as Value Iteration.
+
+Q-Learning    
+1. Same thing as value iteration, but we don't know the rewards of certain states (aka. we do not know $$r(s_t)$$, nor the discounted rewards at all).
+2. Through exploration (taking random actions), we figure out a policy $${\pi}^{*}(s)$$, and by exploitation (follow argmax) we follow this policy.
+
+Q-Learning SARSA: Instead of assuming we will choose the best option, we use the next action we will choose in the future (given the action we chose with epsilon-greedy policy).    
+
+Optimization    
+Hill-Climbing with Simulated Annealing    
+1. Temperature: Let $$s$$ be our current position. Given a temperature $$T$$ initially set to 1, we reduce it by a factor of $$k<1$$. We select a random neighbor t. If $$f(t)>f(s)$$, $$s \leftarrow t$$. Else, with probability $$T$$, set $$s \leftarrow t$$ anyway. This allows some downhills in the beginning, but towards the end we become more strict. 
+Genetic Algorithms: a biological optimization routine.
+1. Randomly select a group of individuals.
+2. Let $$f(t)$$ be a fitness function. We compute the fitness of these individuals.
+3. Selection: we select a certain amount of individuals to proceed to the next level.
+4. Crossover: we exchange parts of two parent individuals to create an offspring (that would hopefully have all of the good genetics from the parents).
+5. Mutation: randomly alters some part of an individual to keep diversity instead of uniformity.
+6. Termination: When we reach a certain point that is good enough or arrived at a solution. 
+
+Bias    
+Example: Gender bias in doctor / not doctor    
+We can help AI become more unbiased through the following: 
+1. Collect data for minorities
+2. Remove sensitive attributes from data (race, etc.)
+3. adding counterfactuals (Reverse gender roles)
+4. Removing data that can be used by proxies (ex. zipcode giving away race) for sensitive information
