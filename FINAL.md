@@ -1,3 +1,8 @@
+Understand More on: 
+1. Transformers & Attention
+2. Q-Learning
+3. Gradient Descent
+
 #### Bayes Rule: 
 
 $$
