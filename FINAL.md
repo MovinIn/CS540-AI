@@ -76,7 +76,8 @@ We are NOT given labels to datapoints. Goal: find patterns within the data.
             5. k-means will find a local optimum.
       2. Graph based clustering: Partition a vertex set $V$ into $V_1$ and $V_2$. Goal: reduce cost of cut. Given a partitioning $P={A,B}$, define cost as:
             1. Weight of cut: reduce $\sum_{i\in A,j\in B} w_{ij}$.
-            2. Weight of cut and normalizing with balance: reduce $\mathrm{Ncut}(A,B)=\frac{\mathrm{cut}(A,B)}{\mathrm{vol}(A)}+\frac{\mathrm{cut}(A,B)}{\mathrm{vol}(B)}$ where $\mathrm{vol}(A)=\sum_{i\in A}\mathrm{degree}(i)$.
+            2. Weight of cut and normalizing with balance: reduce $Ncut(A_1,\dots,A_k) = \frac{1}{2} \sum_{i=1,j \in B}^{k} \frac{W(A_i,B_j)}{vol(A)} where vol(A) = \sum_{i \in A}{} degree(i)$
+          
       3. Laplacian L: $L = D - A$, where $D$ is the degree matrix, and $A$ is the adjacency matrix. Choose the smallest eigenvectors (this will make sure points close to clusters will stay close; other points will drift away).
       4. Similarly, T-SNE is a dimensionality reduction, where close points will stay close, and other points can drift however far they want. Different from PCA in that t-SNE is Local, while PCA is global.
 
@@ -101,7 +102,7 @@ Activation Functions
 1. ReLU: max(0, x)
 2. Sigmoid: A continuous fcn that sends $x \in \mathbb{R} \rightarrow [0,1]$.
 3. tanh: A continuous fcn that sends $x \in \mathbb{R} \rightarrow [-1,1]$.
-4. Softmax: useful with multiple outputs. Turns outputs f into probabilities: $\operatorname{softmax}(f) = \frac{e^{f_y(x)}}{\sum_{k=1}^{K} e^{f_k(x)}}$
+4. Softmax: useful with multiple outputs. Turns outputs f into probabilities: ${softmax}(f) = \frac{e^{f_y(x)}}{\sum_{k=1}^{K} e^{f_k(x)}}$
 
 Gradient Descent in training models  
 Let $\eta > 0$ be the learning rate. We update parameters to get to a local optima using:
@@ -212,7 +213,7 @@ $$
 Attention(Q,K,V) = softmax(\frac{QK^T}{\sqrt{d}})V
 $$
 
-where queries, keys, and values are represented as matrices $Q, K, V$. 
+where queries, keys, and values are represented as matrices $Q, K, V$. $QK^T$ is the score: how related the key is to the query. $V$ is the meaning of the word. 
 
 Transformers  
 Uses attention and fixed word embeddings to discover the true meaning of a word. Fixed embeddings help with not losing the original actual meaning, while attention allows for the word to get its contextual embedding. Feedforward allows for all words to get a new refined contextual embedding given the newfound meaning obtained through attention. Residual connections allow for a pipe connecting fixed embeddings to output, which combines the results from contextual embeddings and fixed embeddings to get the final output meaning.  
@@ -262,7 +263,7 @@ Markov Decision Process (MDP)
 Finding the optimal policy $\pi (s)$. 
 
 $$
-\pi^{*}(s)=\operatorname*{argmax}*{a}\sum*{s'} P(s'|s,a) V^{*}(s')
+{\pi}^{*}(s)={argmax}_a \sum_{s'}^{} P(s'|s,a)V^{\*}(s')
 $$
 
 1. We use the Bellman equation to figure out argmax. We use $\delta<1$ to find a converging discounted future rewards. This is often known as Value Iteration.
