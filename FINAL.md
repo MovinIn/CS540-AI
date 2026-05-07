@@ -1,6 +1,8 @@
-Bayes Rule
+Bayes Rule: 
 
-$P(A|B) = \frac{P(B|A)\cdot P(A)}{P(B)}$
+$$
+P(A|B) = \frac{P(B|A)\cdot P(A)}{P(B)}
+$$
 
 Remember: matrix multiplication: top left corner makes the box. As in: $m \times n * n \times k = m \times k$  
 
